@@ -78,7 +78,7 @@ export default class MyDocument extends Document {
             sizes="16x16"
             href="beat-saber-overlay-1/assets/favicon-16x16.png"
           />
-          <link rel="manifest" href="/manifest.json" />
+          <link rel="manifest" href="beat-saber-overlay-1/manifest.json" />
           <meta name="theme-color" content="#ffffff" />
 
           {/* font loading */}
