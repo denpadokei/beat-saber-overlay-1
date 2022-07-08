@@ -64,9 +64,9 @@ const Home = () => {
             // rowHeight={100}
             maxRotate={12}
             scoreCutShift={10}
-            // style={{
+             style={{
             //   border: '1px solid white'
-            // }}
+             }}
             style={{}}
             config={[
               {
