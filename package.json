@@ -3,6 +3,7 @@
   "version": "1.0.0",
   "description": "Beat Saber OBS overlay",
   "main": "index.js",
+  "homepage": "https://denpadokei.github.io/beat-saber-overlay-1",
   "author": "EmilMalanczak",
   "license": "MIT",
   "private": true,
