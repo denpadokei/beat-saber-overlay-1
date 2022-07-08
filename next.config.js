@@ -20,5 +20,6 @@ module.exports = {
 
       return `@use 'common' as *; ${content}`
     }
-  }
+  },
+  assetPrefix: '/beat-saber-overlay-1'
 }
