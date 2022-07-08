@@ -38,16 +38,16 @@ const Home = () => {
 
   return (
     <>
-      <button type="button" onClick={() => toggleDemo((p) => !p)}>
+      {/* <button type="button" onClick={() => toggleDemo((p) => !p)}>
         cut
-      </button>
+      </button> */}
 
       <div className={classes.visualizers}>
         <div className={classes.wrapper}>
           <CutVisualizer
             cellSize={50}
             fadeTime={150}
-            gridColor="#fff"
+            gridColor="transparent"
             gridBorderSize={2}
             style={{}}
           />
