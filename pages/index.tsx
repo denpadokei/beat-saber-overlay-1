@@ -45,7 +45,7 @@ const Home = () => {
       <div className={classes.visualizers}>
         <div className={classes.wrapper}>
           <CutVisualizer
-            cellSize={70}
+            cellSize={68}
             fadeTime={50}
             gridColor="#fff"
             gridBorderSize={0}
@@ -54,7 +54,7 @@ const Home = () => {
             }}
           />
 
-          <div style={{ margin: -30 + (100 - (70 + (Math.SQRT2 - 1.08) * 70)) }} />
+          <div style={{ margin: -35 + (100 - (70 + (Math.SQRT2 - 1.08) * 70)) }} />
 
           <HitScoreVisualizer
             rows={1}
