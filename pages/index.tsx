@@ -48,9 +48,9 @@ const Home = () => {
             cellSize={50}
             fadeTime={150}
             gridColor="#fff"
-            gridBorderSize={2}
+            gridBorderSize={0}
             style={{
- //             border: '1px solid white'
+              border: '1px solid white'
             }}
           />
 
