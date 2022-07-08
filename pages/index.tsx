@@ -45,8 +45,8 @@ const Home = () => {
       <div className={classes.visualizers}>
         <div className={classes.wrapper}>
           <CutVisualizer
-            cellSize={50}
-            fadeTime={150}
+            cellSize={70}
+            fadeTime={50}
             gridColor="#fff"
             gridBorderSize={0}
             style={{
