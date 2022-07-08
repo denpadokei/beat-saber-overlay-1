@@ -168,7 +168,7 @@ export const Draggable: FC<DraggableProps> = ({
     >
       <UnstyledButton
         ref={useMergedRef(boxRef, outsideClickRef, sizeRef)}
-        onClick={(e) => {
+        onClick={(e : {e: MouseEvent<HTMLButtonElement>}) => {
           if (!isOnOptionsNode(e)) {
             toggleOpened()
           }
