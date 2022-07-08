@@ -50,7 +50,7 @@ const Home = () => {
             gridColor="#fff"
             gridBorderSize={2}
             style={{
-              border: '1px solid red'
+              border: '1px solid white'
             }}
           />
 
@@ -64,9 +64,10 @@ const Home = () => {
             // rowHeight={100}
             maxRotate={12}
             scoreCutShift={10}
-            style={{
-              border: '1px solid red'
-            }}
+            // style={{
+            //   border: '1px solid white'
+            // }}
+            style={{}}
             config={[
               {
                 above: 113,
