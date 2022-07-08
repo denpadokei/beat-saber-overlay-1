@@ -38,9 +38,9 @@ const Home = () => {
 
   return (
     <>
-      <button type="button" onClick={() => toggleDemo((p) => !p)}>
+    {/*  <button type="button" onClick={() => toggleDemo((p) => !p)}>
         cut
-      </button>
+      </button>   */}
 
       <div className={classes.visualizers}>
         <div className={classes.wrapper}>
@@ -50,7 +50,7 @@ const Home = () => {
             gridColor="#fff"
             gridBorderSize={2}
             style={{
-              border: '1px solid white'
+          //    border: '1px solid white'
             }}
           />
 
@@ -59,7 +59,7 @@ const Home = () => {
           <HitScoreVisualizer
             rows={1}
             width="100%"
-            unmountTime={350}
+            unmountTime={300}
             rowHeight={70 + (Math.SQRT2 - 1.08) * 70}
             // rowHeight={100}
             maxRotate={12}
