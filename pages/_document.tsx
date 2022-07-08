@@ -1,5 +1,5 @@
-import Document, { Head, Main, NextScript, Html } from 'next/document'
 import { ServerStyles, createStylesServer } from '@mantine/ssr'
+import Document, { Head, Main, NextScript, Html } from 'next/document'
 
 export default class MyDocument extends Document {
   render() {
@@ -31,7 +31,7 @@ export default class MyDocument extends Document {
           <meta name="theme-color" content="#ffffff" />
 
           {/* font loading */}
-          <link rel="preload" href="/fonts/NeonTubes2.ttf" as="font" crossOrigin="" />
+          <link rel="preload" href="/fonts/NeonTubes2.otf" as="font" crossOrigin="" />
           <link rel="preconnect" href="https://fonts.googleapis.com" />
           <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="" />
           <link
