@@ -47,11 +47,11 @@ const Home = () => {
           <CutVisualizer
             cellSize={50}
             fadeTime={150}
-     //       gridColor="#fff"
-     //       gridBorderSize={2}
-      //      style={{
-      //        border: '1px solid white'
-     //       }}
+            gridColor="#fff"
+            gridBorderSize={2}
+            style={{
+              border: '1px solid white'
+            }}
           />
 
           <div style={{ margin: 20 - (100 - (70 + (Math.SQRT2 - 1.08) * 70)) }} />
