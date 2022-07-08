@@ -9,7 +9,7 @@ Currently WIP, I'll try to update READ.me in sync with code development. Feel fr
 ## OBS source
 
 ```
-https://denpadokei.github.io/beat-saber-overlay-1/
+https://morgolf.github.io/beat-saber-overlay-1/
 ```
 
 ### Credits
