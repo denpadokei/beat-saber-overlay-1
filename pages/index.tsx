@@ -50,7 +50,7 @@ const Home = () => {
             gridColor="#fff"
             gridBorderSize={2}
             style={{
-              border: '1px solid white'
+ //             border: '1px solid white'
             }}
           />
 
