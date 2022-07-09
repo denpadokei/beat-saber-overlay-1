@@ -1,4 +1,5 @@
 import { createStyles, useMantineTheme } from '@mantine/styles'
+import { useRouter } from 'next/router'
 import { useState } from 'react'
 
 import { CutVisualizer } from '../src/components/CutVisualizer'
@@ -20,6 +21,10 @@ export const useStyles = createStyles(() => ({
 
 const Home = () => {
   // const { loading, player } = usePlayerStore()
+  const router = useRouter()
+  const { border } = router.query
+  const isBorder = border === 'true'
+  const borderType = isBorder ? '1px solid white' : ''
   const theme = useMantineTheme()
   const cutNote = useCutsStore((state) => state.cutNote)
   const [isDemoOn, toggleDemo] = useState(false)
@@ -38,18 +43,20 @@ const Home = () => {
 
   return (
     <>
-      {/* <button type="button" onClick={() => toggleDemo((p) => !p)}>
+      <button type="button" onClick={() => toggleDemo((p) => !p)}>
         cut
-      </button> */}
+      </button>
 
       <div className={classes.visualizers}>
         <div className={classes.wrapper}>
           <CutVisualizer
             cellSize={50}
             fadeTime={150}
-            gridColor="transparent"
+            gridColor={isBorder ? '#fff' : 'transparent'}
             gridBorderSize={2}
-            style={{}}
+            style={{
+              border: borderType
+            }}
           />
 
           <div style={{ margin: 20 - (100 - (70 + (Math.SQRT2 - 1.08) * 70)) }} />

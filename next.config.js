@@ -6,6 +6,7 @@
 // eslint-disable-next-line @typescript-eslint/no-var-requires
 const path = require('path')
 
+const isDev = process.env.NODE_ENV === 'development'
 module.exports = {
   sassOptions: {
     includePaths: [path.join(__dirname, 'src/styles')],
@@ -21,5 +22,5 @@ module.exports = {
       return `@use 'common' as *; ${content}`
     }
   },
-  assetPrefix: '/beat-saber-overlay-1'
+  assetPrefix: isDev ? '' : '/beat-saber-overlay-1'
 }
