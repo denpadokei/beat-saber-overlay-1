@@ -13,9 +13,9 @@ https://denpadokei.github.io/beat-saber-overlay-1/
 ```
 
 ## Query
-|query|value|
+|key|value|
 |--|--|
-|border|true|
+|border|true or false. default is false.|
 
 ### Credits
 
