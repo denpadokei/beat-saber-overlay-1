@@ -21,5 +21,8 @@ module.exports = {
       return `@use 'common' as *; ${content}`
     }
   },
+  eslint: {
+    ignoreDuringBuilds: true,
+  },
   assetPrefix: '/beat-saber-overlay-1'
 }
