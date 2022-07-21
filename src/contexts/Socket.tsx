@@ -39,9 +39,7 @@ export const SocketProvider: FC = ({ children }) => {
 
   const handleConnectToHTTP = useCallback(() => {
     const HTTPSocket = new WebSocket(
-      `${window.location.protocol === 'https:' ? 'wss' : 'ws'}://${router.query.ip ?? DEFAULT_IP}:${
-        HTTPStatus.port
-      }${HTTPStatus.entry}`
+      `ws://${router.query.ip ?? DEFAULT_IP}:${HTTPStatus.port}${HTTPStatus.entry}`
     )
 
     setSocket(HTTPSocket)
