@@ -209,7 +209,7 @@ export const Draggable: FC<DraggableProps> = ({
         // @ts-ignore - issue related to mantine typing
         component="div"
         ref={useMergedRef(boxRef, outsideClickRef, sizeRef)}
-        onClick={(e) => {
+        onClick={(e: any) => {
           if (!isOnOptionsNode(e)) {
             toggleOpened()
           }
