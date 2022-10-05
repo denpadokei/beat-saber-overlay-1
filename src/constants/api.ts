@@ -6,6 +6,6 @@ export const HTTPStatus = {
   entry: '/socket'
 }
 
-export const DEFAULT_IP = '127.0.0.1'
+export const DEFAULT_IP = '192.168.100.3'
 
 export const CONNECTION_RECONNECT_TIME = 3000

@@ -1,11 +1,11 @@
 import { useRouter } from 'next/router'
-import { createContext, useCallback, useEffect, useState } from 'react'
+import { createContext, useCallback, useEffect } from 'react'
+import useWebSocket, { ReadyState } from 'react-use-websocket'
 
 import type { FC } from 'react'
 
 import { CONNECTION_RECONNECT_TIME, DEFAULT_IP, HTTPStatus } from 'constants/api'
 import { HP_COSTS } from 'constants/score'
-import { useInterval } from 'hooks/useInterval'
 import { useCutsStore } from 'store/cuts'
 import { useScoreStore } from 'store/score'
 import { useSongStore } from 'store/song'
@@ -17,14 +17,18 @@ import { SocketEvent } from 'types/SocketEvent'
 import { transformCoordinatesToRadians } from 'utils/transformCoordinatesToRadians'
 import { transformRadiansToAngle } from 'utils/transformRadiansToAngle'
 
-export const SocketContext = createContext<WebSocket | null>(null)
+const morgolfSocket = `ws://192.168.100.3:${HTTPStatus.port}${HTTPStatus.entry}`
+
+export const SocketContext = createContext<Pick<
+  ReturnType<typeof useWebSocket>,
+  'getWebSocket' | 'lastMessage'
+> | null>(null)
 
 const HTTPProvider = SocketContext.Provider
 
 export const SocketProvider: FC = ({ children }) => {
   const router = useRouter()
-  const [socket, setSocket] = useState<WebSocket | null>(null)
-  const { connect, disconnect, connected } = useStatusStore()
+  const { connect, disconnect } = useStatusStore()
   const { getSong } = useSongStore()
   const cutNote = useCutsStore((state) => state.cutNote)
   const resetStore = useCutsStore((state) => state.resetStore)
@@ -37,14 +41,28 @@ export const SocketProvider: FC = ({ children }) => {
     setScore
   } = useScoreStore()
 
-  const handleConnectToHTTP = useCallback(() => {
-    const HTTPSocket = new WebSocket(
-      `ws://${router.query.ip ?? DEFAULT_IP}:${HTTPStatus.port}${HTTPStatus.entry}`
-    )
+  // weird - passing that string directly causes build error
+  // with message that window is undefined
+  const getSocketUrl = useCallback(
+    (): Promise<string> =>
+      new Promise((resolve) => {
+        setTimeout(() => {
+          // const socket = `ws://${router.query.ip ?? DEFAULT_IP}:${HTTPStatus.port}${
+          //   HTTPStatus.entry
+          // }`
 
-    setSocket(HTTPSocket)
-  }, [router.query.ip])
+          resolve(morgolfSocket)
+        }, 0)
+      }),
+    []
+  )
 
+  const { lastMessage, readyState, getWebSocket } = useWebSocket(getSocketUrl, {
+    onOpen: connect,
+    onClose: disconnect,
+    onError: disconnect,
+    reconnectInterval: CONNECTION_RECONNECT_TIME
+  })
   const handleTransformSocketData = useCallback(
     (socketData) => {
       const data: HTTPEventData = JSON.parse(socketData.data)
@@ -63,16 +81,18 @@ export const SocketProvider: FC = ({ children }) => {
         case SocketEvent.SONG_START:
           const { songHash, color } = data.status.beatmap!
           getSong(songHash)
-
           setSaberColors({
             [Saber.A]: `rgb(${color.saberA[0]}, ${color.saberA[1]}, ${color.saberA[2]})`,
             [Saber.B]: `rgb(${color.saberB[0]}, ${color.saberB[1]}, ${color.saberB[2]})`
           })
           break
 
+        case SocketEvent.MENU:
+          resetStore()
+          break
+
         case SocketEvent.FAILED:
         case SocketEvent.SOFT_FAILED:
-        case SocketEvent.MENU:
           resetStore()
           break
 
@@ -141,36 +161,19 @@ export const SocketProvider: FC = ({ children }) => {
   )
 
   useEffect(() => {
-    handleConnectToHTTP()
-  }, [handleConnectToHTTP])
-
-  useEffect(() => {
-    if (!socket) return
-
-    socket.onopen = () => {
-      connect()
+    if (!lastMessage && readyState === ReadyState.OPEN) {
+      handleTransformSocketData(lastMessage)
     }
+  }, [handleTransformSocketData, lastMessage, readyState])
 
-    socket.onclose = () => {
-      disconnect()
-      setSocket(null)
-    }
-
-    socket.onmessage = (data) => {
-      handleTransformSocketData(data)
-    }
-
-    // eslint-disable-next-line consistent-return
-    return () => {
-      socket.close()
-    }
-  }, [connect, disconnect, handleTransformSocketData, socket])
-
-  useInterval(() => {
-    if (!connected) {
-      handleConnectToHTTP()
-    }
-  }, CONNECTION_RECONNECT_TIME)
-
-  return <HTTPProvider value={socket}>{children}</HTTPProvider>
+  return (
+    <HTTPProvider
+      value={{
+        getWebSocket,
+        lastMessage
+      }}
+    >
+      {children}
+    </HTTPProvider>
+  )
 }
